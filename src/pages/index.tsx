@@ -3,9 +3,21 @@ import { NextSeoPage } from "../components/nextSeo";
 import { Header } from "../components/Header";
 import { Main } from "../components/Main";
 import { Footer } from "../components/Footer";
+import { CardHomePage  } from "../components/CardHomePage"
+import { useState } from "react";
 import axios from "axios";
 
+interface IdataAbasFooter {
+  title: string;
+  description: string;
+}
+
 function Home(props:any) {
+  const [cardActive,setCardActive] = useState<boolean>(false)
+  const [dataAbasFooter,setDataAbasFooter] = useState<IdataAbasFooter>({
+    title: "",
+    description: ""
+  })
   return (
     <>
       <HeadPage
@@ -29,7 +41,8 @@ function Home(props:any) {
         response_secund_text={props.data.homePageTextRespostaDoTextSecund}
         services={props.data.services1}
       />
-      <Footer abasFooter={props.data.abasFooter} />
+      <Footer abasFooter={props.data.abasFooter} setCardActive={setCardActive} setDataAbasFooter={setDataAbasFooter}/>
+      <CardHomePage cardActive={cardActive} setCardActive={setCardActive} dataAbasFooter={dataAbasFooter}/>
     </>
   )
 }
@@ -58,12 +71,13 @@ export async function getStaticProps() {
     }
     services1 {
       ... on Service {
-        text
+        title
       }
     }
     abasFooter {
        ... on Service {
-         text
+         title
+         description
     }
    }
   }

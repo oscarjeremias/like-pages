@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { SvgBlod } from "./svg";
 import { WhatsappLogo,LinkedinLogo } from "phosphor-react";
-
 interface IMainPropsType {
 	frist_text: string;
 	secund_text: string;
